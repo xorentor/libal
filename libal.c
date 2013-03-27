@@ -1,7 +1,7 @@
 #include <pthread.h>
 #include <malloc.h>
 
-#include "libal.h"
+#include "./include/libal.h"
 
 static int allocated = 0;
 static pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
@@ -23,7 +23,8 @@ inline void alfree( void *p )
 	free( (void *)r );
 }
 
-inline void *almalloc( const int size ) {
+inline void *almalloc( const int size ) 
+{
 	int *r;
 	if( size <  1 )
 		return NULL;
