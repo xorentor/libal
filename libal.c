@@ -1,3 +1,4 @@
+#include <assert.h>
 #include <pthread.h>
 #include <malloc.h>
 
@@ -15,8 +16,7 @@ inline void alfree( void *p )
 {
 	int *r;
 	r = p;
-	if( --r == NULL )
-		return;
+	assert( --r );
         pthread_mutex_lock( &mutex );
 		allocated -= *r;
 	pthread_mutex_unlock( &mutex );
@@ -29,8 +29,7 @@ inline void *almalloc( const int size )
 	if( size <  1 )
 		return NULL;
 	r = malloc( size + sizeof( int ) );	
-	if( r == NULL )
-		return NULL;
+	assert( r );
 	*r = size + sizeof( int );
         pthread_mutex_lock( &mutex );
        		allocated += *r;
